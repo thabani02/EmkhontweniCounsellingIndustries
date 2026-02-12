@@ -1,0 +1,45 @@
+﻿@model EmkhontweniCounselling.Models.Appointment
+
+<section class="container my-5">
+
+    <h2 class="section-title text-center">Payment Confirmation</h2>
+    <div class="royal-divider"></div>
+
+    <div class="booking-card royal-border mx-auto" style="max-width:600px">
+
+        <p><strong>Reference to use:</strong> APPT-@Model.AppointmentId</p>
+
+        <form asp-action="ConfirmPayment"
+              asp-route-id="@Model.AppointmentId"
+              method="post"
+              enctype="multipart/form-data">
+
+            @Html.AntiForgeryToken()
+
+            <!-- PAYMENT REFERENCE -->
+            <div class="mb-3">
+                <label class="form-label">Payment Reference</label>
+                <input type="text"
+                       name="paymentReference"
+                       class="form-control royal-input"
+                       placeholder="APPT-@Model.AppointmentId"
+                       required />
+            </div>
+
+            <!-- PROOF OF PAYMENT -->
+            <div class="mb-4">
+                <label class="form-label">Upload Proof of Payment</label>
+                <input type="file"
+                       name="proofFile"
+                       class="form-control royal-input"
+                       accept=".jpg,.png,.pdf"
+                       required />
+            </div>
+
+            <button type="submit"
+                    class="btn royal-btn w-100 py-3">
+                Submit Payment Proof
+            </button>
+        </form>
+    </div>
+</section>

@@ -1,0 +1,77 @@
+﻿@{
+    ViewData["Title"] = "Admin Login";
+}
+
+<section class="container my-5 position-relative">
+
+    <!-- Subtle African accent -->
+    <div class="healing-circle" style="top:-50px; right:-50px;"></div>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-5 col-md-7">
+
+            <div class="booking-card royal-border admin-login-card">
+
+                <!-- Brand -->
+                <div class="text-center mb-4">
+                    <img src="~/images/icons/crown-gold.png"
+                         alt="Emkhontweni Royal"
+                         style="width:70px"
+                         class="mb-3" />
+
+                    <h2 class="section-title mb-1">
+                        Royal Admin Access
+                    </h2>
+                    <p class="text-muted small">
+                        Authorized personnel only
+                    </p>
+                </div>
+
+                <!-- Error Message -->
+                @if (ViewBag.Error != null)
+                {
+                    <div class="alert alert-danger text-center">
+                        @ViewBag.Error
+                    </div>
+                }
+
+                <!-- Login Form -->
+                <form asp-action="Login" method="post">
+                    @Html.AntiForgeryToken()
+
+                    <!-- Username -->
+                    <div class="mb-3">
+                        <label class="form-label">Username</label>
+                        <input type="text"
+                               name="username"
+                               class="form-control royal-input"
+                               placeholder="Enter admin username"
+                               required />
+                    </div>
+
+                    <!-- Password -->
+                    <div class="mb-4">
+                        <label class="form-label">Password</label>
+                        <input type="password"
+                               name="password"
+                               class="form-control royal-input"
+                               placeholder="••••••••"
+                               required />
+                    </div>
+
+                    <!-- Submit -->
+                    <button type="submit"
+                            class="btn royal-btn w-100 py-3">
+                        Enter Royal Dashboard
+                    </button>
+                </form>
+
+                <!-- Security Footer -->
+                <p class="text-muted text-center small mt-4">
+                    🔒 This system is monitored and secured
+                </p>
+
+            </div>
+        </div>
+    </div>
+</section>

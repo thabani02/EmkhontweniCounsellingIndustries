@@ -1,0 +1,79 @@
+﻿@model List<EmkhontweniCounselling.Models.Appointment>
+
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<section class="container my-5">
+    <h2 class="section-title text-center">Admin Dashboard</h2>
+    <div class="royal-divider"></div>
+
+    <div class="table-responsive">
+        <table class="table align-middle admin-table">
+            <thead>
+                <tr>
+                    <th>Client</th>
+                    <th>Service</th>
+                    <th>Amount</th>
+                    <th>Payment</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var a in Model)
+                {
+                    <tr>
+                        <td>@a.Client.FullName</td>
+                        <td>@a.ServiceType</td>
+                        <td>R @a.Amount</td>
+
+                        <!-- PAYMENT STATUS -->
+                        <td>
+                            @if (a.IsPaymentVerified)
+                            {
+                                <span class="badge bg-success">Verified</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-warning text-dark">Not Verified</span>
+                            }
+                        </td>
+
+                        <!-- APPOINTMENT STATUS -->
+                        <td>
+                            <span class="status-pill @a.Status?.ToLower()">
+                                @a.Status
+                            </span>
+                        </td>
+
+                        <!-- ACTIONS -->
+                        <td class="text-nowrap">
+                            <!-- Toggle Verification -->
+                            <a href="/Admin/TogglePayment/@a.AppointmentId"
+                               class="btn btn-sm btn-outline-primary me-1"
+                               title="Verify / Unverify Payment">
+                                @(a.IsPaymentVerified ? "✖" : "✔")
+                            </a>
+
+                            <!-- Accept / Reject ONLY if verified -->
+                            @if (a.IsPaymentVerified)
+                            {
+                                <a href="/Admin/UpdateStatus/@a.AppointmentId?status=Accepted"
+                                   class="btn btn-sm btn-success me-1">
+                                    Accept
+                                </a>
+
+                                <a href="/Admin/UpdateStatus/@a.AppointmentId?status=Rejected"
+                                   class="btn btn-sm btn-danger">
+                                    Reject
+                                </a>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</section>
