@@ -5,13 +5,65 @@
 }
 
 <section class="container my-5">
+
     <h2 class="section-title text-center">Admin Dashboard</h2>
     <div class="royal-divider"></div>
 
-    <div class="table-responsive">
-        <table class="table align-middle admin-table">
+    <!-- ===============================
+         SEARCH + FILTER BAR
+    =============================== -->
+    <form method="get" class="row g-3 mb-4 align-items-end">
+
+        <!-- SEARCH -->
+        <div class="col-md-4">
+            <label class="form-label">Search Client</label>
+            <input name="search"
+                   value="@ViewBag.Search"
+                   class="form-control"
+                   placeholder="Name or email" />
+        </div>
+
+        <!-- YEAR -->
+        <div class="col-md-3">
+            <label class="form-label">Year</label>
+            <select name="year" class="form-select">
+                <option value="">All Years</option>
+                @foreach (int y in ViewBag.Years)
+                {
+                    var isSelected = (ViewBag.SelectedYear == y);
+                    <option value="@y" selected="@(isSelected ? "selected" : null)">@y</option>
+                }
+            </select>
+        </div>
+
+        <!-- MONTH -->
+<div class="col-md-3">
+    <label class="form-label">Month</label>
+    <select name="month" class="form-select">
+        <option value="">All Months</option>
+        @for (int m = 1; m <= 12; m++)
+{
+    var isSelected = (ViewBag.SelectedMonth == m);
+    <option value="@m" selected="@(isSelected ? "selected" : null)">
+        @System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(m)
+    </option>
+}
+    </select>
+</div>
+
+        <div class="col-md-2">
+            <button class="btn royal-btn w-100">Filter</button>
+        </div>
+    </form>
+
+    <!-- ===============================
+         APPOINTMENTS TABLE
+    =============================== -->
+    <div class="table-responsive admin-table">
+        <table class="table align-middle">
             <thead>
                 <tr>
+                    <th>Booked On</th>
                     <th>Client</th>
                     <th>Service</th>
                     <th>Amount</th>
@@ -25,7 +77,16 @@
                 @foreach (var a in Model)
                 {
                     <tr>
-                        <td>@a.Client.FullName</td>
+                        <!-- BOOKING DATE -->
+                        <td>
+                            @a.AppointmentDate?.ToString("dd MMM yyyy")
+                        </td>
+
+                        <td>
+                            <strong>@a.Client.FullName</strong><br />
+                            <small class="text-muted">@a.Client.Email</small>
+                        </td>
+
                         <td>@a.ServiceType</td>
                         <td>R @a.Amount</td>
 
@@ -50,21 +111,17 @@
 
                         <!-- ACTIONS -->
                         <td class="text-nowrap">
-                            <!-- Toggle Verification -->
                             <a href="/Admin/TogglePayment/@a.AppointmentId"
-                               class="btn btn-sm btn-outline-primary me-1"
-                               title="Verify / Unverify Payment">
+                               class="btn btn-sm btn-outline-primary me-1">
                                 @(a.IsPaymentVerified ? "✖" : "✔")
                             </a>
 
-                            <!-- Accept / Reject ONLY if verified -->
                             @if (a.IsPaymentVerified)
                             {
                                 <a href="/Admin/UpdateStatus/@a.AppointmentId?status=Accepted"
                                    class="btn btn-sm btn-success me-1">
                                     Accept
                                 </a>
-
                                 <a href="/Admin/UpdateStatus/@a.AppointmentId?status=Rejected"
                                    class="btn btn-sm btn-danger">
                                     Reject
@@ -76,4 +133,5 @@
             </tbody>
         </table>
     </div>
+
 </section>
