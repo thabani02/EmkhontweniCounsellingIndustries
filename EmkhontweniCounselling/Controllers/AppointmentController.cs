@@ -32,9 +32,10 @@ namespace EmkhontweniCounselling.Controllers
         public IActionResult Book(string service)
         {
             // Validate service
+            // If no service is provided or invalid, default to the first service
             if (string.IsNullOrEmpty(service) || !_services.ContainsKey(service))
             {
-                return RedirectToAction("Pricing", "Home");
+                service = _services.Keys.First(); // Default to "Student Session"
             }
 
             // Pass service + amount to view

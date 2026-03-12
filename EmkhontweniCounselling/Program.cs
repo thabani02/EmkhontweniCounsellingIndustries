@@ -1,12 +1,12 @@
 using EmkhontweniCounselling.Models;
 using Microsoft.EntityFrameworkCore;
-using EmkhontweniCounselling.Services;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add MVC services
 builder.Services.AddControllersWithViews();
-builder.Services.AddScoped<EmailService>();
+
 
 
 // Register EF Core with SQL Server
@@ -38,6 +38,7 @@ app.UseRouting();
 
 // Enable session middleware
 app.UseSession();
+
 
 // MVC route configuration
 app.MapControllerRoute(

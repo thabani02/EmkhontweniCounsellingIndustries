@@ -21,12 +21,20 @@ circles.forEach((circle, index) => {
     let position = 0;
 
     function float() {
+        // Update position
         position += direction * 0.2;
+
+        // Reverse direction if limits reached
         if (position > 15 || position < -15) direction *= -1;
+
+        // Apply floating transform
         circle.style.transform = `translateY(${position}px)`;
+
+        // Continue animation
         requestAnimationFrame(float);
     }
 
+    // Start animation
     float();
 });
 
@@ -85,3 +93,17 @@ serviceCards.forEach(card => {
         card.style.boxShadow = "0 8px 20px rgba(0,0,0,0.05)";
     });
 });
+// SCROLL ANIMATION OBSERVER
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('scroll-visible');
+        }
+    });
+}, { threshold: 0.2 });
+
+document.querySelectorAll('.scroll-fade, .scroll-up')
+    .forEach(el => observer.observe(el));
+
+
+

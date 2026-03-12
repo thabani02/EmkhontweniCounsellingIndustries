@@ -28,5 +28,9 @@ namespace EmkhontweniRoyalCounselling.Controllers
         {
             return View();
         }
+        public IActionResult Welcome()
+        {
+            return View();
+        }
     }
 }

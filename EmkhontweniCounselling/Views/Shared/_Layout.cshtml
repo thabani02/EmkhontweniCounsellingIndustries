@@ -33,7 +33,7 @@
                         }
                         else
                         {
-                            <a class="nav-link" href="/Admin/Login">Admin Login</a>
+                            //<a class="nav-link" href="/Admin/Login">Admin Login</a>
                         }
                     </li>
                 </ul>
@@ -50,6 +50,11 @@
     <footer class="royal-footer bg-white mt-5 pt-4 pb-4 text-center text-muted">
         <div class="container">
             <p>© @DateTime.Now.Year Emkhontweni Royal Industries. All rights reserved.</p>
+            <div class="admin-hidden-link">
+    <a asp-controller="Admin" asp-action="Login">
+        ...
+    </a>
+</div>
         </div>
     </footer>
 

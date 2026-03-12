@@ -3,9 +3,20 @@
 }
 
 <section class="container my-5 position-relative">
-
+    <div class="d-flex justify-content-end mb-3">
+        <a asp-controller="Admin"
+           asp-action="Logout"
+           class="btn btn-danger">
+            Return to welcome
+        </a>
+    </div>
     <!-- Subtle African accent -->
-    <div class="healing-circle" style="top:-50px; right:-50px;"></div>
+    <div class="healing-circle" style="top:-50px; right:-50px;">
+
+        <img src="~/images/logo/emkhontweni-logo.jpeg"
+             alt="Royal Logo"
+             class="circle-logo" />
+    </div>
 
     <div class="row justify-content-center">
         <div class="col-lg-5 col-md-7">
@@ -14,7 +25,7 @@
 
                 <!-- Brand -->
                 <div class="text-center mb-4">
-                    <img src="~/images/icons/crown-gold.png"
+                    <img src="~/images/logo/crown-gold.png"
                          alt="Emkhontweni Royal"
                          style="width:70px"
                          class="mb-3" />

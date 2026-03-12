@@ -4,6 +4,8 @@ using EmkhontweniCounselling.Models;
 
 namespace EmkhontweniCounselling.Controllers
 {
+    
+
     public class AdminController : Controller
     {
         private readonly EmkhontweniCounsellingDbContext _context;
@@ -12,7 +14,10 @@ namespace EmkhontweniCounselling.Controllers
         {
             _context = context;
         }
-
+        public IActionResult Index()
+        {
+            return RedirectToAction("Login");
+        }
         // ===============================
         // LOGIN
         // ===============================
@@ -113,8 +118,83 @@ namespace EmkhontweniCounselling.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction("Dashboard");
         }
+        // ===============================
+        // GET: RESCHEDULE
+        // ===============================
+        public async Task<IActionResult> Reschedule(int id)
+        {
+            if (!IsLoggedIn()) return RedirectToAction("Login");
+
+            var appointment = await _context.Appointments
+                .Include(a => a.Client)
+                .FirstOrDefaultAsync(a => a.AppointmentId == id);
+
+            if (appointment == null) return NotFound();
+
+            return View(appointment);
+        }
+
+        // ===============================
+        // POST: RESCHEDULE
+        // ===============================
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Reschedule(int id, DateTime newDateTime)
+        {
+            var appointment = await _context.Appointments.FindAsync(id);
+            if (appointment == null) return NotFound();
+
+            appointment.AppointmentDate = newDateTime;
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Dashboard");
+        }
 
         private bool IsLoggedIn()
             => HttpContext.Session.GetString("Admin") != null;
+    
+
+    // ===============================
+// DELETE CLIENT (CONFIRM PAGE)
+// ===============================
+public async Task<IActionResult> DeleteClient(int id)
+        {
+            if (!IsLoggedIn()) return RedirectToAction("Login");
+
+            var client = await _context.Clients
+                .Include(c => c.Appointments)
+                .FirstOrDefaultAsync(c => c.ClientId == id);
+
+            if (client == null) return NotFound();
+
+            return View(client);
+        }
+
+
+        // ===============================
+        // DELETE APPOINTMENT (ONE AT A TIME)
+        // ===============================
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteAppointment(int id)
+        {
+            if (!IsLoggedIn()) return RedirectToAction("Login");
+
+            var appointment = await _context.Appointments.FindAsync(id);
+
+            if (appointment != null)
+            {
+                _context.Appointments.Remove(appointment);
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToAction("Dashboard");
+        }
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear(); // clear admin session
+            return RedirectToAction("Welcome", "Home");
+        }
     }
+
 }

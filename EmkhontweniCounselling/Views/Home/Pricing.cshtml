@@ -2,138 +2,170 @@
     ViewData["Title"] = "Pricing";
 }
 
-<!-- ======================================
-     PRICING HERO
-====================================== -->
-<section class="container my-5 text-center">
-    <h2 class="section-title">Affordable Mental Wellness</h2>
-    <div class="royal-divider"></div>
+<section class="pricing-section py-5">
+    <div class="container text-center">
 
-    <p class="text-muted mx-auto" style="max-width: 700px;">
-        We believe quality mental health care should be accessible to everyone.
-        Our pricing is designed to be affordable without compromising on care.
-    </p>
-</section>
+        <h2 class="fw-bold mb-3">Affordable Mental Wellness</h2>
+        <p class="lead mb-4">
+            We believe quality mental health care should be accessible to everyone.
+            Our pricing is designed to be affordable without compromising on care.
+        </p>
 
-<!-- ======================================
-     INTAKE FEES
-====================================== -->
-<section class="container my-5">
-    <h4 class="text-center mb-4">One-Time Intake Fees</h4>
-    <p class="text-center text-muted mb-5">
-        Initial assessment to understand your needs and create a personalized plan.
-    </p>
+        <h4 class="mb-4">Per Session Pricing</h4>
+        <p class="text-muted">
+            Choose the session type that best fits your needs.
+            All sessions include our full range of therapeutic services.
+        </p>
 
-    <div class="row justify-content-center g-4">
-        <div class="col-md-4">
-            <div class="price-card royal-border p-4 text-center floating-card">
-                <h5>Individual Intake</h5>
-                <p class="price">R50</p>
-                <small class="text-muted">One-time assessment fee</small>
-            </div>
-        </div>
+        <!-- Pricing Cards -->
+        <div class="row justify-content-center g-4 mt-4">
 
-        <div class="col-md-4">
-            <div class="price-card royal-border p-4 text-center floating-card">
-                <h5>Couples Intake</h5>
-                <p class="price">R100</p>
-                <small class="text-muted">One-time assessment fee</small>
-            </div>
+            <!-- Main Visible Services -->
+           <div class="row justify-content-center g-4 mt-4">
+
+    <!-- Student Session -->
+    <div class="col-md-4">
+        <div class="price-card shadow p-3">
+            <h5>Student Session</h5>
+            <p class="text-muted small">
+                A special session for students. Requires valid student ID, proof of registration, and acceptance letter.
+            </p>
+            <h3 class="price">R150</h3>
+            <a href="/Appointment/Book?service=Student Session" class="btn btn-success w-100">Book Now</a>
         </div>
     </div>
-</section>
 
-<!-- ======================================
-     SESSION PRICING
-====================================== -->
-<section class="container my-5">
-    <h4 class="text-center mb-4">Per Session Pricing</h4>
-    <p class="text-center text-muted mb-5">
-        Choose the session type that best fits your needs.
-        All sessions include our full range of therapeutic services.
-    </p>
+    <!-- Individual Session -->
+    <div class="col-md-4">
+        <div class="price-card shadow p-3">
+            <h5>Individual Session</h5>
+            <p class="text-muted small">
+                One-on-one session to address personal mental wellness, stress, and emotional support.
+            </p>
+            <h3 class="price">R250</h3>
+            <a href="/Appointment/Book?service=Individual Session" class="btn btn-success w-100">Book Now</a>
+        </div>
+    </div>
 
-    <div class="row justify-content-center g-4">
+    <!-- Couples Session -->
+    <div class="col-md-4">
+        <div class="price-card shadow p-3">
+            <h5>Couples Session</h5>
+            <p class="text-muted small">
+                Designed for couples to improve communication, resolve conflicts, and strengthen relationships.
+            </p>
+            <h3 class="price">R300</h3>
+            <a href="/Appointment/Book?service=Couples Session" class="btn btn-success w-100">Book Now</a>
+        </div>
+    </div>
+</div>
 
-        <!-- STUDENT SESSION -->
-        <div class="col-md-4">
-            <div class="price-card royal-border p-4 text-center floating-card">
-                <span class="badge popular-badge">Student</span>
-                <h5>Student Session</h5>
-                <p class="price">R150<span class="fs-6">/session</span></p>
+            <!-- Hidden Services -->
+            <div id="moreServices" class="row justify-content-center g-4 mt-3 hidden-services">
+                <div class="col-md-4">
+                    <div class="price-card shadow">
+                        <h5>Stress Management</h5>
+                        <h3 class="price">R250</h3>
+                        <a href="/Appointment/Book?service=Stress Management" class="btn btn-success w-100">Book Now</a>
+                    </div>
+                </div>
 
-                <ul class="pricing-features">
-                    <li>Valid student ID required</li>
-                    <li>Ages 17–22 only</li>
-                    <li>All counselling services included</li>
-                </ul>
+                <div class="col-md-4">
+                    <div class="price-card shadow">
+                        <h5>Trauma Counselling</h5>
+                        <h3 class="price">R250</h3>
+                        <a href="/Appointment/Book?service=Trauma Counselling" class="btn btn-success w-100">Book Now</a>
+                    </div>
+                </div>
 
-                <a href="/Appointment/Book?service=Student Session"
-                   class="btn royal-btn w-100 mt-3">
-                    Book Now
-                </a>
+                <div class="col-md-4">
+                    <div class="price-card shadow">
+                        <h5>African Spirituality & Healing</h5>
+                        <h3 class="price">R250</h3>
+                        <a href="/Appointment/Book?service=African Spirituality & Healing" class="btn btn-success w-100">Book Now</a>
+                    </div>
+                </div>
             </div>
+
+        <!-- Arrow Button -->
+        <div class="mt-4">
+            <button id="toggleBtn" class="btn btn-outline-dark">
+                <span id="arrow">&#9660;</span> View More Services
+            </button>
         </div>
 
-        <!-- INDIVIDUAL SESSION -->
-        <div class="col-md-4">
-            <div class="price-card royal-border p-4 text-center floating-card highlighted">
-                <span class="badge popular-badge">Popular</span>
-                <h5>Individual Session</h5>
-                <p class="price">R250<span class="fs-6">/session</span></p>
+        <!-- Promise Section -->
+        <div class="mt-5 promise-box p-4 shadow-sm">
+            <h4>Our Promise to You</h4>
+            <p>
+                We understand that seeking help takes courage.
+                That’s why we ensure complete confidentiality, compassionate care,
+                and transparent pricing. There are no hidden fees — what you see is what you pay.
+            </p>
 
-                <ul class="pricing-features">
-                    <li>One-on-one counselling</li>
-                    <li>All therapy modalities</li>
-                    <li>Flexible scheduling</li>
-                    <li>Progress tracking</li>
-                </ul>
-
-                <a href="/Appointment/Book?service=Individual Session"
-                   class="btn royal-btn w-100 mt-3">
-                    Book Now
-                </a>
-            </div>
-        </div>
-
-        <!-- COUPLES SESSION -->
-        <div class="col-md-4">
-            <div class="price-card royal-border p-4 text-center floating-card">
-                <h5>Couples Session</h5>
-                <p class="price">R300<span class="fs-6">/session</span></p>
-
-                <ul class="pricing-features">
-                    <li>Joint counselling session</li>
-                    <li>Communication coaching</li>
-                    <li>Conflict resolution</li>
-                    <li>Relationship assessment</li>
-                </ul>
-
-                <a href="/Appointment/Book?service=Couples Session"
-                   class="btn royal-btn w-100 mt-3">
-                    Book Now
-                </a>
-            </div>
+            <p class="mb-0">
+                ✔ 100% Confidential Sessions <br />
+                ✔ Compassionate, Non-Judgmental Care <br />
+                ✔ Professional, Qualified Counsellors
+            </p>
         </div>
 
     </div>
 </section>
 
-<!-- ======================================
-     OUR PROMISE
-====================================== -->
-<section class="container my-5 text-center">
-    <h4 class="mb-4">Our Promise to You</h4>
+<style>
+    .price-card {
+        background: #fff;
+        padding: 30px;
+        border-radius: 15px;
+        transition: transform 0.3s ease;
+    }
 
-    <p class="text-muted mx-auto" style="max-width: 800px;">
-        We understand that seeking help takes courage. That’s why we ensure
-        complete confidentiality, compassionate care, and transparent pricing.
-        There are no hidden fees — what you see is what you pay.
-    </p>
+        .price-card:hover {
+            transform: translateY(-8px);
+        }
 
-    <div class="row justify-content-center mt-4">
-        <div class="col-md-3 text-muted">✔ 100% Confidential Sessions</div>
-        <div class="col-md-3 text-muted">✔ Compassionate, Non-Judgmental Care</div>
-        <div class="col-md-3 text-muted">✔ Professional, Qualified Counsellors</div>
-    </div>
-</section>
+    .price {
+        color: #198754;
+        margin: 15px 0;
+    }
+
+    .hidden-services {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.6s ease;
+    }
+
+        .hidden-services.show {
+            max-height: 800px;
+        }
+
+    #arrow {
+        display: inline-block;
+        transition: transform 0.3s ease;
+    }
+
+    .rotate {
+        transform: rotate(180deg);
+    }
+
+    .promise-box {
+        background: #f8f9fa;
+        border-radius: 15px;
+    }
+</style>
+
+<script>
+    const toggleBtn = document.getElementById("toggleBtn");
+    const moreServices = document.getElementById("moreServices");
+    const arrow = document.getElementById("arrow");
+
+    toggleBtn.addEventListener("click", function () {
+        moreServices.classList.toggle("show");
+        arrow.classList.toggle("rotate");
+
+        toggleBtn.innerHTML = moreServices.classList.contains("show")
+            ? '<span id="arrow">&#9650;</span> Show Less'
+            : '<span id="arrow">&#9660;</span> View More Services';
+    });
+</script>

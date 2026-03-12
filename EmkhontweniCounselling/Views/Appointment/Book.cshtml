@@ -4,100 +4,106 @@
     ViewData["Title"] = "Book Appointment";
 }
 
-<section class="container my-5">
-    <div class="row g-5 align-items-start">
+<section class="container py-5">
+    <div class="row justify-content-center g-4">
 
         <!-- ============================
              BOOKING FORM
         ============================= -->
-        <div class="col-lg-7">
-            <div class="booking-card royal-border">
+        <div class="col-lg-6">
+            <div class="card shadow-lg p-4 rounded-4">
 
-                <h3 class="mb-4">Book Your Counselling Session</h3>
+                <h3 class="text-center mb-4">Book Your Session</h3>
 
                 <form asp-action="Book" method="post">
                     @Html.AntiForgeryToken()
 
-                    <!-- CLIENT DETAILS -->
+                    <!-- Full Name -->
                     <div class="mb-3">
                         <label class="form-label">Full Name</label>
-                        <input name="FullName"
-                               class="form-control royal-input"
-                               placeholder="Enter your full name"
-                               required />
+                        <input type="text" name="FullName" class="form-control" required />
                     </div>
 
+                    <!-- Email -->
                     <div class="mb-3">
-                        <label class="form-label">Email Address</label>
-                        <input name="Email"
-                               type="email"
-                               class="form-control royal-input"
-                               placeholder="you@example.com"
-                               required />
+                        <label class="form-label">Email</label>
+                        <input type="email" name="Email" class="form-control" required />
                     </div>
 
-                    <div class="mb-4">
+                    <!-- Phone -->
+                    <div class="mb-3">
                         <label class="form-label">Phone Number</label>
-                        <input name="PhoneNumber"
-                               class="form-control royal-input"
-                               placeholder="e.g. 071 234 5678"
-                               required />
+                        <input type="text" name="PhoneNumber" class="form-control" />
                     </div>
 
-                    <!-- SESSION DETAILS -->
-                    <h6 class="mt-4 mb-3">Session Details</h6>
-
-                    <!-- SERVICE (AUTO-BOUND FROM CONTROLLER) -->
+                    <!-- Service Dropdown -->
                     <div class="mb-3">
-                        <label class="form-label">Selected Service</label>
-                        <input asp-for="ServiceType"
-                               class="form-control royal-input"
-                               value="@ViewBag.Service"
-                               readonly />
+                        <label class="form-label">Select Service</label>
+
+                        <select id="serviceSelect" name="ServiceType" class="form-select">
+
+                            <option value="Student Session" data-price="150" selected="@(ViewBag.Service == "Student Session")">Student Session - R150</option>
+                            <option value="Individual Session" data-price="250" selected="@(ViewBag.Service == "Individual Session")">Individual Session - R250</option>
+                            <option value="Couples Session" data-price="300" selected="@(ViewBag.Service == "Couples Session")">Couples Session - R300</option>
+                            <option value="Stress Management" data-price="250" selected="@(ViewBag.Service == "Stress Management")">Stress Management - R250</option>
+                            <option value="Trauma Counselling" data-price="250" selected="@(ViewBag.Service == "Trauma Counselling")">Trauma Counselling - R250</option>
+                            <option value="African Spirituality & Healing" data-price="250" selected="@(ViewBag.Service == "African Spirituality & Healing")">African Spirituality & Healing - R250</option>
+
+                        </select>
+
+                        <!-- STUDENT NOTICE -->
+                        <div id="studentNotice" class="alert alert-warning mt-3 d-none">
+                            <strong>Student Requirement:</strong><br>
+                            Students must email the following together with their proof of payment:
+                            <ul class="mb-0">
+                                <li>Valid Student ID</li>
+                                <li>Proof of Registration</li>
+                                <li>University / College Acceptance Letter</li>
+                            </ul>
+                        </div>
+
                     </div>
 
-                    <!-- AMOUNT (AUTO-BOUND FROM CONTROLLER) -->
+                    <!-- Appointment Date -->
                     <div class="mb-3">
-                        <label class="form-label">Amount Payable</label>
-                        <input asp-for="Amount"
-                               class="form-control royal-input"
-                               value="@ViewBag.Amount"
-                               readonly />
+                        <label class="form-label">Appointment Date</label>
+                        <input type="datetime-local" asp-for="AppointmentDate" class="form-control" required />
                     </div>
 
-                    <!-- DATE -->
-                    <div class="mb-4">
-                        <label class="form-label">Preferred Date & Time</label>
-                        <input asp-for="AppointmentDate"
-                               type="datetime-local"
-                               class="form-control royal-input"
-                               required />
+                    <!-- Price Display -->
+                    <div class="mb-3 text-center">
+                        <h5>
+                            Total:
+                            <span id="priceDisplay" class="text-success fw-bold fs-4">
+                                R @ViewBag.Amount
+                            </span>
+                        </h5>
                     </div>
 
-                    <p class="text-muted small mb-4">
-                        All sessions are confidential and handled with dignity,
-                        care, and professionalism.
-                    </p>
+                    <!-- Hidden Amount -->
+                    <input type="hidden" asp-for="Amount" id="amountField" />
 
-                    <button type="submit"
-                            class="btn royal-btn w-100 py-3">
-                        Submit Booking
+                    <button type="submit" class="btn btn-success w-100">
+                        Confirm Booking
                     </button>
-                </form>
 
+                </form>
             </div>
         </div>
 
         <!-- ============================
-             PAYMENT INSTRUCTIONS
+              PAYMENT INSTRUCTIONS
         ============================= -->
         <div class="col-lg-5">
-            <div class="payment-info-card royal-border">
+            <div class="payment-info-card royal-border shadow-sm">
 
                 <h5 class="mb-3">Payment Instructions</h5>
 
                 <p class="fw-semibold">
-                    Amount Due: <span class="text-primary">R @ViewBag.Amount</span>
+                    Amount Due:
+                    <span id="sideAmount" class="text-primary fs-5">
+                        R @ViewBag.Amount
+                    </span>
                 </p>
 
                 <hr />
@@ -125,3 +131,54 @@
 
     </div>
 </section>
+
+<style>
+.payment-info-card{
+    background:#f9fafb;
+    padding:30px;
+    border-radius:20px;
+    transition:transform 0.3s ease;
+}
+
+.payment-info-card:hover{
+    transform:translateY(-5px);
+}
+
+.royal-border{
+    border-left:6px solid #0d6efd;
+}
+
+.card{
+    border:none;
+}
+</style>
+
+<script>
+
+const select = document.getElementById("serviceSelect");
+const priceDisplay = document.getElementById("priceDisplay");
+const sideAmount = document.getElementById("sideAmount");
+const amountField = document.getElementById("amountField");
+const studentNotice = document.getElementById("studentNotice");
+
+function updatePrice(){
+
+    const selectedOption = select.options[select.selectedIndex];
+    const price = selectedOption.getAttribute("data-price");
+
+    priceDisplay.textContent = "R " + price;
+    sideAmount.textContent = "R " + price;
+    amountField.value = price;
+
+    if(selectedOption.value === "Student Session"){
+        studentNotice.classList.remove("d-none");
+    } else{
+        studentNotice.classList.add("d-none");
+    }
+}
+
+select.addEventListener("change", updatePrice);
+
+updatePrice();
+
+</script>
